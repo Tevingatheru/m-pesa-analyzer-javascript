@@ -1,0 +1,29 @@
+{
+    "manifest_version": 3,
+    "name": "M-pesa analyser",
+    "version": "1.0",
+    "description": "Analyse m-pesa financial statements.",
+    "permissions": [
+        "activeTab",
+        "storage",
+        "scripting",
+        "tabs",
+        "nativeMessaging"
+    ],
+    "chrome_url_overrides": {
+        "newtab": "index.html"
+    },
+    "icons": {
+        "40": "public/images/favicon-40x40.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "content.js"
+            ]
+        }
+    ]
+}
