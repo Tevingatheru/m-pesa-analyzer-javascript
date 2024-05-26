@@ -10,7 +10,7 @@
 //                 sendResponse({ success: false, message: 'Invalid file type' });
 //                 return false;
 //             }
-
+// 
 //             processFile(file)
 //                 .then(() => {
 //                     sendResponse({ success: true, message: 'File processed successfully' });
@@ -18,14 +18,14 @@
 //                 .catch((error) => {
 //                     sendResponse({ success: false, message: error.message });
 //                 });
-
-//             return true; 
+// 
+//             return true;
 //         }
 //     });
-
+// 
 // function processFile(file) {
 //     return new Promise((resolve, reject) => {
-//         try {            
+//         try {
 //             console.log(`Processing file: ${file.name}`);
 //             resolve();
 //         } catch (error) {
@@ -33,8 +33,27 @@
 //         }
 //     });
 // }
+// 
+// document.addEventListener("DOMContentLoaded", function () {
+//   chrome.runtime.onMessage.addListener(function (
+//     request,
+//     sender,
+//     sendResponse
+//   ) {
+//     try {
+//       console.log(request);
+//       sendResponse({ response: "Message received" });
+//     } catch (error) {
+//       sendResponse({ response: "Error on listener." });
+//     }
+//   });
+// });
 
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    console.log(request);
-    sendResponse({response: "Message received"});
-  });
+chrome.runtime.onMessage.addListener(
+  function (request, sender, sendResponse) {
+    console.log(sender.tab ?
+      "from a content script:" + sender.tab.url :
+      "from the extension");
+  sendResponse({ response: "Message received" });
+  return true;
+});
